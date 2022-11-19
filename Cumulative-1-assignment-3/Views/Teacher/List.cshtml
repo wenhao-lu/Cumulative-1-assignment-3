@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Cumulative_1_assignment_3.Models.Teacher>
+
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Teachers </h2>
+<form action="/teacher/List" method="GET">
+    <input type="text" name="SearchKey" autocomplete="off" />
+    <input type="submit" value="Search" />
+
+
+
+
+</form>
+
+
+<p>I have total @Model.Count() teachers in the database</p>
+
+@foreach (Cumulative_1_assignment_3.Models.Teacher MyTeacher in Model)
+{
+    <table id="table">
+        <tr>
+            <th>TeacherId</th>
+            <th>TeacherFname</th>
+            <th>TeacherLname</th>
+        </tr>
+        <tr>
+            <td><a href="/Teacher/Show/@MyTeacher.TeacherId">@MyTeacher.TeacherId</a></td>
+            <td><a href="/Teacher/Show/@MyTeacher.TeacherId">@MyTeacher.TeacherFname</a></td>
+            <td><a href="/Teacher/Show/@MyTeacher.TeacherId">@MyTeacher.TeacherLname</a></td>
+        </tr>
+
+    </table>
+}
