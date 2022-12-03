@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Cumulative_1_assignment_3.Models;
+using System.Diagnostics;
 
 
 namespace Cumulative_1_assignment_3.Controllers
@@ -35,6 +36,55 @@ namespace Cumulative_1_assignment_3.Controllers
             Teacher SelectedTeacher = MyController.FindTeacher(id);
             return View(SelectedTeacher);
         }
+
+        // GET: /Teacher/New
+
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        
+        // GET: /Teacher/Create
+        [HttpPost]
+        public ActionResult Create(int TeacherId, string TeacherFname, string TeacherLname, string EmployeeNumber, DateTime HireDate, int TeacherSalary)
+        {
+
+            Debug.WriteLine("debugging");
+            Debug.WriteLine(TeacherId);
+            Debug.WriteLine(TeacherFname);
+            Debug.WriteLine(TeacherLname);
+            Debug.WriteLine(EmployeeNumber);
+            Debug.WriteLine(HireDate);
+            Debug.WriteLine(TeacherSalary);
+
+
+            Teacher NewTeacher = new Teacher();
+            NewTeacher.TeacherId = TeacherId;
+            NewTeacher.TeacherFname = TeacherFname;
+            NewTeacher.TeacherLname = TeacherLname;
+            NewTeacher.EmployeeNumber = EmployeeNumber;
+            NewTeacher.HireDate = HireDate;
+            NewTeacher.TeacherSalary = TeacherSalary;
+
+
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.AddTeacher(NewTeacher);
+
+
+
+            return RedirectToAction("List");
+        }
+
+
+
+
+
+
+
+
+
     }
 }
 

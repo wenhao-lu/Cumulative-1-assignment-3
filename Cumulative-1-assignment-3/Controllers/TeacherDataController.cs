@@ -128,5 +128,35 @@ namespace Cumulative_1_assignment_3.Controllers
 
         }
 
+        [HttpPost]
+        public void AddTeacher (Teacher NewTeacher)
+        {
+            MySqlConnection Conn = School.AccessDatabase();
+
+            Conn.Open();
+
+            string query = "Insert into teachers (teacherid, teacherfname, teacherlname, employeenumber,hiredate,salary) values(@TeacherId,@TeacherFname,@TeacherLname,@EmployeeNumber,@HireDate,@TeacherSalary)";
+
+
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = query;
+            cmd.Parameters.AddWithValue("@TeacherId", NewTeacher.TeacherId);
+            cmd.Parameters.AddWithValue("@TeacherFname", NewTeacher.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@HireDate", NewTeacher.HireDate);
+            cmd.Parameters.AddWithValue("@TeacherSalary", NewTeacher.TeacherSalary);
+
+            cmd.Prepare();
+
+
+            MySqlDataReader ResultSet = cmd.ExecuteReader();
+            Teacher SelectedTeacher = new Teacher();
+        }          
+
+
+
+
+
     }
 }

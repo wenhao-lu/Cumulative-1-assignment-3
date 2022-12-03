@@ -5,32 +5,82 @@
     ViewBag.Title = "List";
 }
 
-<h2>List of Teachers </h2>
-<form action="/teacher/List" method="GET">
-    <input type="text" name="SearchKey" autocomplete="off" />
-    <input type="submit" value="Search" />
+<p id="p1"></p>
+<h2>Humber Teachers Database</h2>
 
+<nav>
+    <a class="navlink" href="/Teacher/New/">New Teacher</a>
+</nav>
 
-
-
+<form action="/teacher/List" method="GET" class="searchBar">
+    <input type="text" name="SearchKey" autocomplete="off" id="SearchInput" value="Search Keywords" />
+    <div class="btnContainer">
+        <input type="submit" value="By Name" id="Searchbtn1" />
+        <input type="submit" value="By Hire-date" id="Searchbtn2" />
+        <input type="submit" value="By salary" id="Searchbtn3" />
+    </div>
 </form>
 
 
-<p>I have total @Model.Count() teachers in the database</p>
 
-@foreach (Cumulative_1_assignment_3.Models.Teacher MyTeacher in Model)
+
+@foreach (Cumulative_1_assignment_3.Models.Teacher MyTeachers in Model)
 {
-    <table id="table">
+    <table id="teacherTable">
         <tr>
-            <th>TeacherId</th>
-            <th>TeacherFname</th>
-            <th>TeacherLname</th>
+            <th>Teacher Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
         </tr>
         <tr>
-            <td><a href="/Teacher/Show/@MyTeacher.TeacherId">@MyTeacher.TeacherId</a></td>
-            <td><a href="/Teacher/Show/@MyTeacher.TeacherId">@MyTeacher.TeacherFname</a></td>
-            <td><a href="/Teacher/Show/@MyTeacher.TeacherId">@MyTeacher.TeacherLname</a></td>
+            <td><a href="/Teacher/Show/@MyTeachers.TeacherId">@MyTeachers.TeacherId</a></td>
+            <td><a href="/Teacher/Show/@MyTeachers.TeacherId">@MyTeachers.TeacherFname</a></td>
+            <td><a href="/Teacher/Show/@MyTeachers.TeacherId">@MyTeachers.TeacherLname</a></td>
         </tr>
 
     </table>
 }
+
+
+<style>
+ 
+    #p1 {
+        margin: 3em;
+    }
+
+    h2 {
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold 700;
+        color: rgb(9, 83, 83);
+        margin: auto;
+        text-align: center;
+    }
+
+    .searchBar {
+        text-align: center;
+        margin: 1em;
+    }
+
+    #SearchInput {
+        width: 22em;
+    }
+
+    .btnContainer {
+        display: flexbox;
+        margin: 1em;
+        align-content: space-around;
+        flex-flow: row wrap;
+    }
+
+    #Searchbtn1, #Searchbtn2, #Searchbtn3 {
+        margin: 0 1em;
+    }
+
+    #teacherTable {
+        border-style: solid;
+        margin-left: auto;
+        margin-right: auto;
+        table-layout: auto;
+        width: 40%;
+    }
+</style>
