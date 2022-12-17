@@ -8,7 +8,7 @@
 <p id="p1"></p>
 <h2>Humber Teachers Database</h2>
 
-<nav>
+<nav id="add">
     <a class="navlink" href="/Teacher/New/">New Teacher</a>
 </nav>
 
@@ -31,11 +31,19 @@
             <th>Teacher Id</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Employee Number</th>
+            <th>Hire Date</th>
+            <th>Salary</th>
+
         </tr>
         <tr>
             <td><a href="/Teacher/Show/@MyTeachers.TeacherId">@MyTeachers.TeacherId</a></td>
             <td><a href="/Teacher/Show/@MyTeachers.TeacherId">@MyTeachers.TeacherFname</a></td>
             <td><a href="/Teacher/Show/@MyTeachers.TeacherId">@MyTeachers.TeacherLname</a></td>
+            <td><a href="/Teacher/Show/@MyTeachers.EmployeeNumber">@MyTeachers.EmployeeNumber</a></td>
+            <td><a href="/Teacher/Show/@MyTeachers.HireDate">@MyTeachers.HireDate</a></td>
+            <td><a href="/Teacher/Show/@MyTeachers.TeacherSalary">@MyTeachers.TeacherSalary</a></td>
+
         </tr>
 
     </table>
@@ -47,7 +55,15 @@
     #p1 {
         margin: 3em;
     }
-
+    #add {
+        text-align: center;
+        margin-top: 1em;
+    }
+    .navlink {
+        padding: 0.2em;
+        border: 1px solid;
+        border-radius: 5px;
+    }
     h2 {
         font-family: 'Ubuntu', sans-serif;
         font-weight: bold 700;
@@ -55,32 +71,26 @@
         margin: auto;
         text-align: center;
     }
-
     .searchBar {
         text-align: center;
         margin: 1em;
     }
-
     #SearchInput {
         width: 22em;
     }
-
     .btnContainer {
-        display: flexbox;
         margin: 1em;
         align-content: space-around;
         flex-flow: row wrap;
     }
-
     #Searchbtn1, #Searchbtn2, #Searchbtn3 {
         margin: 0 1em;
     }
-
     #teacherTable {
         border-style: solid;
         margin-left: auto;
         margin-right: auto;
         table-layout: auto;
-        width: 40%;
+        width: 100%;
     }
 </style>

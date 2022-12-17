@@ -99,17 +99,14 @@ namespace Cumulative_1_assignment_3.Controllers
         [Route("api/TeacherData/FindTeacher/{TeacherId}")]
         public Teacher FindTeacher(int TeacherId)
         {
-
             MySqlConnection Conn = School.AccessDatabase();
 
             Conn.Open();
 
             string query = "Select * from teachers where teacherid = " + TeacherId.ToString();
 
-
             MySqlCommand cmd = Conn.CreateCommand();
             cmd.CommandText = query;
-
 
             MySqlDataReader ResultSet = cmd.ExecuteReader();
             Teacher SelectedTeacher = new Teacher();
@@ -128,16 +125,33 @@ namespace Cumulative_1_assignment_3.Controllers
 
         }
 
+        /// <summary>
+        /// Add a Teacher to the Database
+        /// </summary>
+        /// <param name="NewTeacher">
+        /// An input from user to the create a new teacher's record to the column of the teachers' table
+        /// </param>
+        /// <example>
+        /// POST api/teacherdata/addteacher 
+        /// {
+        ///	"TeacherId":"99",
+        ///	"TeacherFname":"Albus",
+        ///	"TeacherLname":"Dumbledore",
+        ///	"EmployeeNumber":"9999",
+        ///	"HireDate":"1990-12-25"
+        ///	"TeacherSalary":"1000"
+        /// }
+        /// </example>
         [HttpPost]
         public void AddTeacher (Teacher NewTeacher)
         {
+            // establish the link to the database
             MySqlConnection Conn = School.AccessDatabase();
 
             Conn.Open();
 
+            // SQL query command
             string query = "Insert into teachers (teacherid, teacherfname, teacherlname, employeenumber,hiredate,salary) values(@TeacherId,@TeacherFname,@TeacherLname,@EmployeeNumber,@HireDate,@TeacherSalary)";
-
-
             MySqlCommand cmd = Conn.CreateCommand();
             cmd.CommandText = query;
             cmd.Parameters.AddWithValue("@TeacherId", NewTeacher.TeacherId);
@@ -149,14 +163,76 @@ namespace Cumulative_1_assignment_3.Controllers
 
             cmd.Prepare();
 
-
             MySqlDataReader ResultSet = cmd.ExecuteReader();
             Teacher SelectedTeacher = new Teacher();
-        }          
+        }
 
+        /// <summary>
+        /// Deletes the selected Teacher (with provided ID) from the database 
+        /// </summary>
+        /// <param name="id">Teacher's ID</param>
+        /// <example>
+        /// POST /api/teacherdata/deleteteacher/321421
+        /// </example>
+        [HttpPost]
+        public void DeleteTeacher(int id)
+        {
+            // establish the link to the database
+            MySqlConnection Conn = School.AccessDatabase();
 
+            Conn.Open();
 
+            // SQL query command
+            MySqlCommand cmd = Conn.CreateCommand();
+            cmd.CommandText = "Delete from teachers where teacherid=@id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+            // close the link
+            Conn.Close();
+        }
 
+        /// <summary>
+        /// Updates an existing Teachers' infomation on the database
+        /// </summary>
+        /// <param name="TeacherInfo">
+        /// New information will be updated to the selected teacher 
+        /// </param>
+        /// <example>
+        /// POST api/TeacherData/UpdateTeacher/321421
+        /// {
+        ///	"TeacherId":"321421",
+        ///	"TeacherFname":"Harry",
+        ///	"TeacherLname":"Potter",
+        ///	"EmployeeNumber":"8888",
+        ///	"HireDate":"0001-01-01"
+        ///	"TeacherSalary":"33"       
+        /// }
+        /// </example>
+        [HttpPost]
+        public void UpdateTeacher(int id, Teacher TeacherInfo)
+        {
+            // establish the link to the database
+            MySqlConnection Conn = School.AccessDatabase();
 
+            Conn.Open();
+
+            // SQL query command
+            MySqlCommand cmd = Conn.CreateCommand();
+            // ask user to input new infomation to update the selected teacher
+            cmd.CommandText = "update teachers set teacherfname=@TeacherFname, teacherlname=@TeacherLname, employeenumber=@EmployeeNumber, hiredate=@HireDate  where salary=@TeacherSalary";
+            cmd.Parameters.AddWithValue("@TeacherId", id);
+            cmd.Parameters.AddWithValue("@TeacherFname", TeacherInfo.TeacherFname);
+            cmd.Parameters.AddWithValue("@TeacherLname", TeacherInfo.TeacherLname);
+            cmd.Parameters.AddWithValue("@EmployeeNumber", TeacherInfo.EmployeeNumber);
+            cmd.Parameters.AddWithValue("@HireDate", TeacherInfo.HireDate);
+            cmd.Parameters.AddWithValue("@TeacherSalary", TeacherInfo.TeacherSalary);
+
+            cmd.Prepare();
+            cmd.ExecuteNonQuery();
+
+            // close the link
+            Conn.Close();
+        }
     }
 }

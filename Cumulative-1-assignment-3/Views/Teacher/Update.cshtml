@@ -1,0 +1,56 @@
+﻿@model Cumulative_1_assignment_3.Models.Teacher
+@{
+    ViewBag.Title = "Update";
+}
+
+
+<div id="container">
+    <nav class="back">
+        <a class="backButton" href="/Teacher/Show/@Model.TeacherId">Back</a>
+    </nav>
+    <h2>Update Teacher</h2>
+    <form class="updateForm" method="POST" action="/Teacher/Update/@Model.TeacherId">
+        <div>
+            <label for="TeacherFname">First Name:</label>
+            <input type="text" id="TeacherFname" name="TeacherFname" value="@Model.TeacherFname" />
+
+        </div>
+        <div>
+            <label for="TeacherLname">Last Name:</label>
+            <input type="text" id="TeacherLname" name="TeacherLname" value="@Model.TeacherLname" />
+
+        </div>
+        <div>
+            <label for="EmployeeNumber">Employee Number:</label>
+            <input type="text" id="EmployeeNumber" name="EmployeeNumber" value="@Model.EmployeeNumber" />
+        </div>
+        <div>
+            <label for="HireDate">Hire Date:</label>
+            <input type="text" id="HireDate" name="HireDate" value="@Model.HireDate" />
+        </div>
+        <div>
+            <label for="TeacherSalary">Salary:</label>
+            <input type="text" id="TeacherSalary" name="TeacherSalary" value="@Model.TeacherSalary" />
+        </div>
+        <div>
+            <input class="updateBtn" type="submit" value="Update Teacher" />
+        </div>
+    </form>
+</div>
+
+
+<style>
+    .backButton {
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 0.5em;
+        color: blue;
+    }
+    .back{
+        margin-top:1em;
+    }
+    .updateBtn{
+        color:green;
+        margin-top:0.5em;
+    }
+</style>
